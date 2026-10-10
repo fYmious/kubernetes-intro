@@ -433,7 +433,7 @@ minikube image load doschennikov-app:1.0
               periodSeconds: 5
   ```
 
-- `app-service.yaml`:
+- `k8s/app-service.yaml`:
 
   ```yaml
     apiVersion: v1
@@ -456,17 +456,30 @@ minikube image load doschennikov-app:1.0
 Я убедился, что приложение работает корректно. Для этого я посмотрел все ресурсы в неймспэйсе:
 
 ```sh
+kubectl apply -f k8s/
+kubectl get pods -w
+
 kubectl get all
 ```
+
+#img("assets/2.png", [Ресурсы])
 
 Также я посмотрел логи пода приложения:
 
 ```sh
-kubectl logs ...
+kubectl logs deploy/app
 ```
+
+#img("assets/3.png", [Логи пода приложения])
 
 Затем я открыл приложение:
 
 ```sh
-minikube service ...
+minikube service app --url
 ```
+
+#img("assets/4.png", [Адрес приложения])
+
+Затем я проверил все эндпоинты:
+
+#img("assets/5.png", [Проверка эндпоинтов])
