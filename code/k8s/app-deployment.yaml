@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      enableServiceLinks: false
+      initContainers:
+        - name: wait-for-db
+          image: postgres:15
+          command: ["sh", "-c", "until pg_isready -h postgres -p 5432; do echo waiting for db; sleep 2; done"]
+      containers:
+        - name: app
+          image: doschennikov-app:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5527
+          envFrom:
+            - configMapRef:
+                name: app-config
+            - secretRef:
+                name: app-secret
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5527
+            initialDelaySeconds: 5
+            periodSeconds: 5
