@@ -361,7 +361,7 @@ minikube image load doschennikov-app:1.0
 - `k8s/app-secret.yaml`:
 
   ```yaml
-    apiVersion: v1
+  apiVersion: v1
   kind: Secret
   metadata:
     name: app-secret
@@ -395,7 +395,7 @@ minikube image load doschennikov-app:1.0
 - `k8s/app-deployment.yaml`:
 
   ```yaml
-    apiVersion: apps/v1
+  apiVersion: apps/v1
   kind: Deployment
   metadata:
     name: app
@@ -436,7 +436,7 @@ minikube image load doschennikov-app:1.0
 - `k8s/app-service.yaml`:
 
   ```yaml
-    apiVersion: v1
+  apiVersion: v1
   kind: Service
   metadata:
     name: app
