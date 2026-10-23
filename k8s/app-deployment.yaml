@@ -1,25 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app
+  name: doschennikov-app
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
-      app: app
+      app: doschennikov-app
   template:
     metadata:
       labels:
-        app: app
+        app: doschennikov-app
     spec:
       enableServiceLinks: false
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: doschennikov-app
       initContainers:
         - name: wait-for-db
           image: postgres:15
           command: ["sh", "-c", "until pg_isready -h postgres -p 5432; do echo waiting for db; sleep 2; done"]
       containers:
         - name: app
-          image: doschennikov-app:1.0
+          image: ghcr.io/fymious/kubernetes-intro:sha-e266b70
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5527

@@ -9,4 +9,4 @@ data:
   POSTGRES_HOST: "postgres"
   POSTGRES_PORT: "5432"
   POSTGRES_USER: "user_465797"
-  POSTGRES_DB: "assistant_465797"
+  POSTGRES_DB: "doschennikov97"
