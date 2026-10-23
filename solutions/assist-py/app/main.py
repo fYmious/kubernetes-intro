@@ -59,9 +59,9 @@ def _meta() -> dict:
 @app.get("/")
 async def root():
     return {
-        "message": f"👋 Привет, {OWNER}!",
+        "message": f"👋 Привет, {OWNER}! v2 (lab6 rolling update)",
         "service": "personal-assistant",
-        "version": "3.0",
+        "version": "3.1",
         "endpoints": [
             "/me", "/notes", "/weather/{city}", "/secret/{key}",
             "/cache/stats",
